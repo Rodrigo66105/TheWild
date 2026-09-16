@@ -1,0 +1,16 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": [
+    "minecraft:forest",
+    "minecraft:taiga",
+    "minecraft:plains",
+    "minecraft:meadow",
+    "minecraft:snowy_plains"
+  ],
+  "spawners": {
+    "type": "thewild:red_fox",
+    "weight": 10,
+    "minCount": 1,
+    "maxCount": 2
+  }
+}
