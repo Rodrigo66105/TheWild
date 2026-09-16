@@ -1,0 +1,16 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": [
+    "minecraft:forest",
+    "minecraft:birch_forest",
+    "minecraft:taiga",
+    "minecraft:meadow",
+    "minecraft:flower_forest"
+  ],
+  "spawners": {
+    "type": "thewild:red_deer",
+    "weight": 18,
+    "minCount": 2,
+    "maxCount": 4
+  }
+}
