@@ -1,6 +1,7 @@
 package com.rodrigo.thewild;
 
 import com.rodrigo.thewild.registry.ModEntities;
+import com.rodrigo.thewild.registry.ModItems;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -16,6 +17,7 @@ public class TheWild {
     public TheWild() {
         var modBus = FMLJavaModLoadingContext.get().getModEventBus();
         ModEntities.ENTITIES.register(modBus);
+        ModItems.ITEMS.register(modBus);
         modBus.addListener(this::commonSetup);
         modBus.addListener(this::createAttributes);
     }
