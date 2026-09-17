@@ -1,0 +1,13 @@
+{
+  "type": "forge:remove_spawns",
+  "biomes": [
+    "minecraft:forest",
+    "minecraft:taiga",
+    "minecraft:plains",
+    "minecraft:meadow",
+    "minecraft:snowy_plains"
+  ],
+  "entity_types": [
+    "minecraft:fox"
+  ]
+}
