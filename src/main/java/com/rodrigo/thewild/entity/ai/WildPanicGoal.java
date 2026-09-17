@@ -1,6 +1,6 @@
 package com.rodrigo.thewild.entity.ai;
 
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
 
 /**
@@ -9,13 +9,13 @@ import net.minecraft.world.entity.ai.goal.PanicGoal;
  * the animal jumps and forces a fresh path calculation.
  */
 public class WildPanicGoal extends PanicGoal {
-    private final Mob mob;
+    private final PathfinderMob mob;
     private int recoveryCooldown;
     private int stuckTicks;
     private double lastX;
     private double lastZ;
 
-    public WildPanicGoal(Mob mob, double speedModifier) {
+    public WildPanicGoal(PathfinderMob mob, double speedModifier) {
         super(mob, speedModifier);
         this.mob = mob;
     }
