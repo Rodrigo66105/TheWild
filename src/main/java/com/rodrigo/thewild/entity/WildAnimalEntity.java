@@ -1,10 +1,10 @@
 package com.rodrigo.thewild.entity;
 
+import com.rodrigo.thewild.entity.ai.WildPanicGoal;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -12,8 +12,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-
-import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class WildAnimalEntity extends Animal {
     private final float minWeight;
@@ -25,12 +23,13 @@ public abstract class WildAnimalEntity extends Animal {
         super(type, level);
         this.minWeight = minWeight;
         this.maxWeight = maxWeight;
+        this.setMaxUpStep(1.0F);
         randomizeIndividual();
     }
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new PanicGoal(this, 1.6D));
+        this.goalSelector.addGoal(0, new WildPanicGoal(this, 1.8D));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 12.0F, 1.25D, 1.7D));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
