@@ -3,10 +3,17 @@ package com.rodrigo.thewild.entity.ai;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
 
-/** Panic behavior tuned for TheWild animals. */
+/**
+ * Panic behaviour tuned for TheWild animals.
+ * If vanilla navigation keeps the animal pressed against an obstacle,
+ * the animal jumps and forces a fresh path calculation.
+ */
 public class WildPanicGoal extends PanicGoal {
     private final Mob mob;
     private int recoveryCooldown;
+    private int stuckTicks;
+    private double lastX;
+    private double lastZ;
 
     public WildPanicGoal(Mob mob, double speedModifier) {
         super(mob, speedModifier);
@@ -16,6 +23,9 @@ public class WildPanicGoal extends PanicGoal {
     @Override
     public void start() {
         recoveryCooldown = 0;
+        stuckTicks = 0;
+        lastX = mob.getX();
+        lastZ = mob.getZ();
         super.start();
     }
 
@@ -27,11 +37,26 @@ public class WildPanicGoal extends PanicGoal {
             recoveryCooldown--;
         }
 
+        double movedSqr = mob.distanceToSqr(lastX, mob.getY(), lastZ);
+        if (movedSqr < 0.0025D) {
+            stuckTicks++;
+        } else {
+            stuckTicks = 0;
+        }
+
+        lastX = mob.getX();
+        lastZ = mob.getZ();
+
+        // A horizontal collision is immediate evidence of an obstacle.
+        // If movement remains almost zero for several ticks, treat it as
+        // a failed route even when the collision flag is not raised.
         if (recoveryCooldown == 0 && mob.onGround()
-                && (mob.horizontalCollision || mob.getNavigation().isStuck())) {
+                && (mob.horizontalCollision || stuckTicks >= 8)) {
             mob.getJumpControl().jump();
+            mob.getNavigation().stop();
             mob.getNavigation().recomputePath();
-            recoveryCooldown = 8;
+            stuckTicks = 0;
+            recoveryCooldown = 10;
         }
     }
 }
