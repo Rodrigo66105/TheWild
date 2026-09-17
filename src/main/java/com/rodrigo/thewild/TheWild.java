@@ -1,5 +1,6 @@
 package com.rodrigo.thewild;
 
+import com.rodrigo.thewild.registry.ModCreativeTabs;
 import com.rodrigo.thewild.registry.ModEntities;
 import com.rodrigo.thewild.registry.ModItems;
 import net.minecraft.world.entity.SpawnPlacements;
@@ -18,6 +19,7 @@ public class TheWild {
         var modBus = FMLJavaModLoadingContext.get().getModEventBus();
         ModEntities.ENTITIES.register(modBus);
         ModItems.ITEMS.register(modBus);
+        ModCreativeTabs.TABS.register(modBus);
         modBus.addListener(this::commonSetup);
         modBus.addListener(this::createAttributes);
     }
